@@ -4,10 +4,13 @@
  */
 package com.controller;
 
+import com.view.Form_Bioskop;
+import java.sql.*;
+
 /**
  *
  * @author USER
  */
 public interface controller_bioskop {
-    
+    public void simpan (Form_Bioskop bioskop) throws SQLException;
 }

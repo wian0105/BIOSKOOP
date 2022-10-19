@@ -5,8 +5,10 @@
 package com.model;
 
 import com.controller.controller_bioskop;
+import com.koneksi.koneksi_bioskop;
 import com.view.Form_Bioskop;
-import java.sql.SQLException;
+import java.sql.*;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,22 +20,22 @@ public class model_bioskop implements controller_bioskop{
     @Override
     public void simpan(Form_Bioskop bioskop) throws SQLException {
         try {
-            Connection con = koneksi.getcon();
-            String sql = "Insert Into siswa Values (?,?,?,?,?";
-            PreparedStatement prepare = con.preparedStatement(sql);
-            prepare.setString(1, bioskop.cbFilm.getSelectedItem());
-            prepare.setString(2, bioskop.txtbangku.getText();
-            prepare.setString(3, bioskop.chbFb1.getSelectedItem());
-            prepare.setString(4, bioskop.chbFb2.getSelectedItem());
+            Connection con = koneksi_bioskop.getcon();
+            String sql = "Insert Into siswa Values (?,?,?,?,?)";
+            PreparedStatement prepare = con.prepareStatement(sql);
+            prepare.setString(1, (String) bioskop.cbFilm.getSelectedItem());
+            prepare.setString(2, bioskop.txtbangku.getText());
+            bioskop.chbFb1 = new JCheckBox("PopCorn");
+            bioskop.chbFb2 = new JCheckBox("Cola");
             prepare.setString(5, bioskop.txtharga.getText());
             prepare.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diSimpan");
             prepare.close();
-            Baru(Bioskop);
+            Baru(bioskop);
         } catch (Exception e) {
             System.out.println (e);
         } finally {
-            Tampil(Bioskop);
+            Tampil(bioskop);
             siswa.setLebarKolom();
         }
     }

@@ -5,22 +5,65 @@
 package com.view;
 
 import com.model.model_input;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
  * @author USER
  */
 public class input_Film extends javax.swing.JFrame {
+    public DefaultTableModel tblmodel;
+    String header[] = {"KODE FILM","JUDUL FILM","HARGA"};
     model_input m = new model_input();
     /**
      * Creates new form input_Film
      */
-    public input_Film() {
+    public input_Film() throws SQLException {
         initComponents();
+        tblmodel = new DefaultTableModel(null, header);
+        tblInput.setModel(tblmodel);
+        tblInput.setAutoResizeMode(tblInput.AUTO_RESIZE_ALL_COLUMNS);
+        m.Tampil(this);
+        setLebarKolom();
     }
+    
+     public void setColumnWidth(int kolom){
+         DefaultTableColumnModel dtcm = (DefaultTableColumnModel) tblInput.getColumnModel();
+            TableColumn kolomtabel = dtcm.getColumn(kolom);
+            int lebar = 0;
+            int margin = 10;
+            int a;
+            TableCellRenderer renderer = kolomtabel.getHeaderRenderer();
+            if (renderer == null){
+                renderer = tblInput.getTableHeader().getDefaultRenderer();
+            }
+            Component komponen = renderer.getTableCellRendererComponent(
+                    tblInput, kolomtabel.getHeaderValue(),false , false, 0, 0);
+            lebar = komponen.getPreferredSize().width;
+            for(a=0; a < tblInput.getRowCount(); a++){
+                renderer = tblInput.getCellRenderer(a, kolom);
+                komponen = renderer.getTableCellRendererComponent((JTable) 
+                        tblInput.getValueAt(a, kolom), false, false, false, a, kolom);
+                int lebarKolom = komponen.getPreferredSize().width;
+                lebar = Math.max(lebar, lebarKolom);
+            }
+            lebar = lebar + margin;
+            kolomtabel.setPreferredWidth(lebar);
+     }
+     
+     public void setLebarKolom() {
+        int a;
+        for (a = 0; a < tblInput.getColumnCount(); a++) {
+            setColumnWidth(a);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,43 +75,24 @@ public class input_Film extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtKdFilm = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtJudul = new javax.swing.JTextField();
         txtHarga = new javax.swing.JTextField();
-        btnSimpan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInput = new javax.swing.JTable();
-        btnUbah = new javax.swing.JButton();
-        btnHapus = new javax.swing.JButton();
+        txtJudul = new javax.swing.JTextField();
+        txtKdFilm = new javax.swing.JTextField();
+        txtSimpan = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Kode Film");
 
-        txtKdFilm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKdFilmActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Judul");
 
         jLabel3.setText("Harga");
-
-        txtJudul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtJudulActionPerformed(evt);
-            }
-        });
-
-        btnSimpan.setText("SIMPAN");
-        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanActionPerformed(evt);
-            }
-        });
 
         tblInput.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,72 +107,67 @@ public class input_Film extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblInput);
 
-        btnUbah.setText("UBAH");
-        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+        txtSimpan.setText("SIMPAN");
+        txtSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUbahActionPerformed(evt);
+                txtSimpanActionPerformed(evt);
             }
         });
 
-        btnHapus.setText("HAPUS");
-        btnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHapusActionPerformed(evt);
-            }
-        });
+        jButton1.setText("UBAH");
+
+        jButton2.setText("HAPUS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                                    .addComponent(txtJudul, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtKdFilm, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSimpan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(jButton1)))
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton2)))
                 .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtKdFilm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .addComponent(txtJudul, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSimpan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(btnUbah)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHapus)
-                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel2)
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtKdFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtKdFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnUbah)
-                    .addComponent(btnHapus))
+                    .addComponent(txtSimpan)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
@@ -157,40 +176,32 @@ public class input_Film extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtJudulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJudulActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtJudulActionPerformed
-
-    private void txtKdFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKdFilmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtKdFilmActionPerformed
-
-    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+    private void txtSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSimpanActionPerformed
         try {
             m.Simpan(this);
             m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnSimpanActionPerformed
+    }//GEN-LAST:event_txtSimpanActionPerformed
 
-    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
             m.Ubah(this);
             m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnUbahActionPerformed
+    }                                       
 
-    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             m.Hapus(this);
             m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnHapusActionPerformed
+    }                                        
 
     /**
      * @param args the command line arguments
@@ -218,26 +229,33 @@ public class input_Film extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(input_Film.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new input_Film().setVisible(true);
+                try {
+                    new input_Film().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnHapus;
-    public javax.swing.JButton btnSimpan;
-    public javax.swing.JButton btnUbah;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     public javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblInput;
+    public javax.swing.JTable tblInput;
     public javax.swing.JTextField txtHarga;
     public javax.swing.JTextField txtJudul;
     public javax.swing.JTextField txtKdFilm;
+    public javax.swing.JButton txtSimpan;
     // End of variables declaration//GEN-END:variables
 }

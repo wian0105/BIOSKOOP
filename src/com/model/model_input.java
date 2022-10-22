@@ -35,7 +35,7 @@ public class model_input implements controller_input{
             System.out.println(e);
         } finally{
             Tampil(inpt);
-            input.setLebarKolom();
+            inpt.setLebarKolom();
         }
     }
 
@@ -56,7 +56,7 @@ public class model_input implements controller_input{
             System.out.println(e);
         } finally{
             Tampil(inpt);
-            input.setLebarKolom();
+            inpt.setLebarKolom();
         }
     }
 

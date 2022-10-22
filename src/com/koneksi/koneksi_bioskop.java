@@ -10,14 +10,14 @@ import java.sql.*;
  *
  * @author USER
  */
-public class koneksi_bioskop {
-    private static Connection con;      
+public class koneksi_bioskop {   
+    private static Connection con;
     public static Connection getcon() {
             if (con == null) {
                 try {
-                    String url = "jdbc:mysql://192.168.43.58/biaoskop";
-                    String username = "test";
-                    String password = "123";
+                    String url = "jdbc:mysql://localhost/biaoskop";
+                    String username = "root";
+                    String password = "";
                     DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                     con = DriverManager.getConnection(url, username , password);
                 } catch (Exception e) {

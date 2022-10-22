@@ -64,7 +64,7 @@ public class input_Film extends javax.swing.JFrame {
         for (a = 0; a < tblInput.getColumnCount(); a++) {
             setColumnWidth(a);
         }
-
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +82,7 @@ public class input_Film extends javax.swing.JFrame {
         tblInput = new javax.swing.JTable();
         txtJudul = new javax.swing.JTextField();
         txtKdFilm = new javax.swing.JTextField();
-        txtSimpan = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -107,10 +107,10 @@ public class input_Film extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblInput);
 
-        txtSimpan.setText("SIMPAN");
-        txtSimpan.addActionListener(new java.awt.event.ActionListener() {
+        btnSimpan.setText("SIMPAN");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSimpanActionPerformed(evt);
+                btnSimpanActionPerformed(evt);
             }
         });
 
@@ -141,7 +141,7 @@ public class input_Film extends javax.swing.JFrame {
                                     .addComponent(txtJudul, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtKdFilm, javax.swing.GroupLayout.Alignment.LEADING)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtSimpan)
+                                .addComponent(btnSimpan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                                 .addComponent(jButton1)))
                         .addGap(41, 41, 41)
@@ -165,7 +165,7 @@ public class input_Film extends javax.swing.JFrame {
                     .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSimpan)
+                    .addComponent(btnSimpan)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
@@ -176,19 +176,17 @@ public class input_Film extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSimpanActionPerformed
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         try {
             m.Simpan(this);
-            m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_txtSimpanActionPerformed
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
             m.Ubah(this);
-            m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -197,7 +195,6 @@ public class input_Film extends javax.swing.JFrame {
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             m.Hapus(this);
-            m.Baru(this);
         } catch (SQLException ex) {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -246,6 +243,7 @@ public class input_Film extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnSimpan;
     public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -256,6 +254,5 @@ public class input_Film extends javax.swing.JFrame {
     public javax.swing.JTextField txtHarga;
     public javax.swing.JTextField txtJudul;
     public javax.swing.JTextField txtKdFilm;
-    public javax.swing.JButton txtSimpan;
     // End of variables declaration//GEN-END:variables
 }

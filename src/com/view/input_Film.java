@@ -117,6 +117,11 @@ public class input_Film extends javax.swing.JFrame {
         jButton1.setText("UBAH");
 
         jButton2.setText("HAPUS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,6 +188,14 @@ public class input_Film extends javax.swing.JFrame {
             Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            m.Hapus(this);
+        } catch (SQLException ex) {
+            Logger.getLogger(input_Film.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {

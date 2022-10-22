@@ -1,4 +1,4 @@
-/*
+a/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -26,12 +26,12 @@ public class model_bioskop implements controller_bioskop{
             prepare.setString(1, (String) bioskop.cbFilm.getSelectedItem());
             prepare.setString(2, bioskop.txtbangku.getText());
             bioskop.chbFb1 = new JCheckBox("PopCorn");
-            bioskop.chbFb2 = new JCheckBox("Cola");
+            bioskop.chbFb2 = new JCheckBox("Coffe");
             prepare.setString(5, bioskop.txtharga.getText());
             prepare.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diSimpan");
             prepare.close();
-            Baru(bioskop);
+            baru(bioskop);
         } catch (Exception e) {
             System.out.println (e);
         } finally {

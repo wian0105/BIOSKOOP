@@ -15,7 +15,7 @@ public class koneksi_bioskop {
     public static Connection getcon() {
             if (con == null) {
                 try {
-                    String url = "jdbc:mysql://localhost/biaoskop";
+                    String url = "jdbc:mysql://192.168.43.58/biaoskop";
                     String username = "root";
                     String password = "";
                     DriverManager.registerDriver(new com.mysql.jdbc.Driver());
